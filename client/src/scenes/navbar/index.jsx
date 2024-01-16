@@ -1,6 +1,6 @@
 import { useTheme } from "@emotion/react";
 import { DarkMode, Help, LightMode, Notifications, Search ,Message, Close} from "@mui/icons-material";
-import { Icon, IconButton, InputBase, Typography, useMediaQuery , FormControl, Select, Menu, MenuItem, Box} from "@mui/material";
+import {  IconButton, InputBase, Typography, useMediaQuery , FormControl, Select, Menu, MenuItem, Box} from "@mui/material";
 import FlexBetween from "components/FlexBetween";
 import { useState } from "react"
 import { useDispatch, useSelector } from "react-redux";
@@ -14,6 +14,7 @@ const Navbar=()=>{
     const navigate = useNavigate();
     const user = useSelector((state)=>state.user);
     const isNonMobileScreens = useMediaQuery("(min-width :1000px)")
+    console.log(user);
 
     const theme = useTheme();
     const neutralLight = theme.palette.neutral.light;
@@ -43,9 +44,8 @@ const Navbar=()=>{
                </Typography>
 
                {isNonMobileScreens && (
-                <FlexBetween backgroundColor={neutralLight} borderRadius={"9px"}    gap="3rem"
-                padding="0.1rem 1.5rem">
-                    <InputBase placeholder="Search ...."/>
+                <FlexBetween backgroundColor={neutralLight} borderRadius={"9px"} gap="3rem" padding="0.1rem 1.5rem">
+                    <InputBase placeholder="Search..."/>
                     <IconButton>
                         <Search/>
                     </IconButton>
@@ -58,7 +58,8 @@ const Navbar=()=>{
         {isNonMobileScreens ?(
           <FlexBetween gap="2rem">
             <IconButton onClick={()=> dispatch(setmode())}>
-               {theme.palette.mode === "dark" ? (
+               {
+               theme.palette.mode === "dark" ? (
                 <DarkMode sx={{fontSize :"25px"}} />
                )
                :(
@@ -66,7 +67,7 @@ const Navbar=()=>{
                )
             }
         
-            </IconButton>
+           </IconButton>
 
             <Message sx={{fontSize : "25px"}}/>
             <Notifications sx={{fontSize : "25px"}}/>
@@ -88,13 +89,16 @@ const Navbar=()=>{
                 },
               }}
               input={<InputBase />}
+              value={"Bhupendra"}
             >
-              <MenuItem >
+              <MenuItem value={"Bhupendra"}>
                 <Typography>{"Bhupendra"}</Typography>
               </MenuItem>
               <MenuItem onClick={()=>dispatch(setLogout())}>Log Out</MenuItem>
               </Select>
+           
             </FormControl>
+            <Menu/>
           </FlexBetween>
         )
         :(
@@ -169,7 +173,7 @@ const Navbar=()=>{
                 </MenuItem>
               </Select>
             </FormControl>
-          </FlexBetween>
+        </FlexBetween>
 
       </Box>
       
